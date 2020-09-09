@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import style from './ChartsView.module.scss'
-import Main from '../components/charts/Main'
+// import Main from '../components/charts/Main'
+import Bar from '../components/charts/bar/Bar'
 
 const generalColorList = [
   {
@@ -54,7 +55,7 @@ export default class ChartsView extends Component {
           </div>
         </div>
         <div className={style.contentBox}>
-          <Main title="柱状图和条形图 （Bar）"></Main>
+          <Bar></Bar>
         </div>
       </div>
     )
