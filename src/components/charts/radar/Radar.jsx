@@ -14,25 +14,26 @@ export default class Radar extends Component {
           radar: {
             // shape: 'circle',
             indicator: [
-              { name: '安全隐患', max: 3000 },
-              { name: '环境环保', max: 3000 },
-              { name: '维修养护', max: 3000 },
-              { name: '矛盾纠纷', max: 3000 },
-              { name: '社区治理', max: 3000 },
-              { name: '社区治安', max: 3000 },
+              { name: '安全隐患: 2709', max: 3000 },
+              { name: '环境环保: 2111', max: 3000 },
+              { name: '维修养护: 2100', max: 3000 },
+              { name: '矛盾纠纷: 2132', max: 3000 },
+              { name: '社区治理: 1209', max: 3000 },
+              { name: '社区治安: 2132', max: 3000 },
             ],
             center: ['50%', '45%'], // 雷达图中心坐标
             radius: '70%', // 图的大小
             startAngle: 0, // 图偏转角度，将图转向为横向
             name: {
-              formatter: function (value, indicator,data) {
-                const values = value.substring(0, value.indexOf('\n'))
-                return '{cyan|' + indicator.name + ': ' + data + '}'
-              },
+              // formatter: function (params,i,x) {
+              // console.log(params,i,x)
+              // const values = value.substring(0, value.indexOf('\n'))
+              // return '{specialColor|' + params + ': ' + '' + '}'
+              // },
               // formatter: '{b}:{c}',
               rich: {
-                cyan: {
-                  color: '#2ed6e6',
+                specialColor: {
+                  color: '#d9d9d9',
                   fontSize: 12,
                 },
               },
@@ -55,6 +56,7 @@ export default class Radar extends Component {
               // 雷达图层级不规则内容背景样式
               show: false,
             },
+            splitNumber: 5, // 雷达图圈数设置
             axisLine: {
               //各条轴线的辅助线
               show: true,
@@ -68,7 +70,6 @@ export default class Radar extends Component {
           series: [
             {
               type: 'radar',
-              // areaStyle: {normal: {}},
               data: [
                 {
                   value: [2709, 2111, 2100, 2132, 1209, 2132],
@@ -81,16 +82,17 @@ export default class Radar extends Component {
                   borderWidth: 2,
                 },
               },
-              symbolSize: 3, // 拐点的大小
+              symbolSize: 0, // 拐点的大小
               lineStyle: {
                 normal: {
-                  borderColor: '#2ed6e6',
-                  borderWidth: 2,
+                  color: '#2ed6e6',
+                  width: 2,
                 },
               },
               areaStyle: {
                 normal: {
-                  color: '#2ed6e6cc',
+                  color: '#2ed6e6',
+                  opciaty: 0.2, // 一定要用此属性来控制内容区域的透明度，不可以直接用色卡去控制，否则移入直接内容会变为透明！！！
                 },
               },
             },
@@ -100,146 +102,94 @@ export default class Radar extends Component {
       {
         title: '自定义雷达图',
         options: {
-          color: ['#2ed6e6', '#FFBB34', '#2AD49A'],
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              //坐标轴指示器-基准线
-              type: 'line', //是否移入时出现交叉的竖轴
-              label: {
-                backgroundColor: '#6a7985',
-              },
-              lineStyle: {
-                color: '#2ed6e6',
-              },
-            },
-          },
           grid: {
-            //框体位置
-            left: '13%',
-            right: '8%',
-            top: '15%',
-            bottom: '35%',
-            // containLabel: true,
+            containLabel: true, //鼠标是否可以移动到tooltip区域内
           },
-          legend: {
-            show: true,
-            left: 70,
-            top: -6,
-            icon: 'roundRect',
-            itemWidth: 16, //标示块的大小
-            itemHeight: 4,
-            fontSize: 12,
-            itemGap: 12,
-            textStyle: {
-              color: '#d9d9d9',
-              padding: [3, 0, 0, 0],
-            },
-          },
-          xAxis: {
-            type: 'category',
-            boundaryGap: false, // 连接 y 轴的原点
-            data: ['8月', '10月', '12月', '2月', '4月', '6月'],
-            axisLabel: {
-              // 坐标轴文本标签，详见axis.axisLabel
+          radar: {
+            shape: 'circle',
+            indicator: [
+              { name: '安全隐患', max: 3000 },
+              { name: '环境环保', max: 3000 },
+              { name: '维修养护', max: 3000 },
+              { name: '矛盾纠纷', max: 3000 },
+              { name: '社区治理', max: 3000 },
+              { name: '社区治安', max: 3000 },
+            ],
+            center: ['50%', '45%'], // 雷达图中心坐标
+            radius: '70%', // 图的大小
+            startAngle: 0, // 图偏转角度，将图转向为横向
+            name: {
+              // formatter: function (params,i,x) {
+              // console.log(params,i,x)
+              // const values = value.substring(0, value.indexOf('\n'))
+              // return '{specialColor|' + params + ': ' + '' + '}'
+              // },
+              // formatter: '{b}:{c}',
+              rich: {
+                specialColor: {
+                  color: '#d9d9d9',
+                  fontSize: 12,
+                },
+              },
               textStyle: {
-                color: '#d9d9d9',
-              },
-              interval: 'auto', //设置坐标轴分割间隔
-              margin: 8, // 坐标轴底线与 X 轴文字上间距
-            },
-            axisLine: {
-              //x 轴坐标轴底线
-              show: true,
-              lineStyle: {
-                color: '#8e8e8e',
-                width: 1.5,
+                color: '#2ed6e6',
+                fontSize: 12,
               },
             },
-            axisTick: { show: false }, //是否有 x 轴刻度值的小尾巴
-          },
-          yAxis: {
-            type: 'value',
-            name: '单位', //y 轴单位量名称
-            nameTextStyle: {
-              //y 轴单位量样式
-              color: '#8e8e8e',
-              fontSize: 12,
-              padding: [0, 30, 0, 0],
-            },
-            nameGap: 10, // y 轴单位量的与单位间距
+            nameGap: 10, //描述名称和图形之间的间距
             splitLine: {
-              // y 轴的线为虚线及颜色
-              show: true,
+              // 雷达图层级不规则外框样式
               lineStyle: {
+                color: 'rgba(255,255,255,0.2)',
+                opacity: 1,
+                width: 1,
                 type: 'dashed',
-                color: [
-                  'rgba(217,217,217,0)',
-                  'rgba(217,217,217,0.6)',
-                  'rgba(217,217,217,0.6)',
-                  'rgba(217,217,217,0.6)',
-                  'rgba(217,217,217,0.6)',
-                ],
               },
             },
-            axisLabel: {
-              textStyle: {
-                color: '#8e8e8e',
+            splitArea: {
+              // 雷达图层级不规则内容背景样式
+              show: false,
+              areaStyle: {
+                color: '#232223',
+              },
+            },
+            splitNumber: 5, // 雷达图圈数设置
+            axisLine: {
+              //各条轴线的辅助线
+              show: true,
+              lineStyle: {
+                color: 'rgba(255,255,255,0.2)',
+                type: 'solid',
               },
             },
           },
+          // symbolSize: 2, // 可计算特性参数，空数据拖拽提示图形大小
           series: [
             {
-              name: '类型一',
-              data: [298, 245, 290, 260, 355, 195],
-              type: 'line',
-              smooth: true,
-              symbol: 'circle', // 移入后的标记点的图形
-              // ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
-              symbolSize: 2, //标记图形的大小
+              type: 'radar',
+              data: [
+                {
+                  value: [2709, 2111, 2100, 2132, 1209, 2132],
+                  name: '分析图',
+                },
+              ],
               itemStyle: {
+                normal: {
+                  borderColor: '#2ed6e6',
+                  borderWidth: 2,
+                },
+              },
+              symbolSize: 0, // 拐点的大小
+              lineStyle: {
                 normal: {
                   color: '#2ed6e6',
                   width: 2,
                 },
-                lineStyle: {
-                  width: 2,
-                },
               },
-            },
-            {
-              name: '类型二',
-              data: [198, 145, 190, 160, 255, 95],
-              type: 'line',
-              smooth: true,
-              symbol: 'circle', // 移入后的标记点的图形
-              // ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
-              symbolSize: 2, //标记图形的大小
-              itemStyle: {
+              areaStyle: {
                 normal: {
-                  color: '#FFBB34',
-                  width: 2,
-                },
-                lineStyle: {
-                  width: 2,
-                },
-              },
-            },
-            {
-              name: '类型三',
-              data: [98, 45, 90, 60, 155, 5],
-              type: 'line',
-              smooth: true,
-              symbol: 'circle', // 移入后的标记点的图形
-              // ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
-              symbolSize: 2, //标记图形的大小
-              itemStyle: {
-                normal: {
-                  color: '#2AD49A',
-                  width: 2,
-                },
-                lineStyle: {
-                  width: 2,
+                  color: '#2ed6e6',
+                  opciaty: 0.2, // 一定要用此属性来控制内容区域的透明度，不可以直接用色卡去控制，否则移入直接内容会变为透明！！！
                 },
               },
             },
