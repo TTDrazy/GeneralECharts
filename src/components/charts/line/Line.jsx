@@ -14,11 +14,43 @@ export default class Line extends Component {
             axisPointer: {
               // 坐标轴指示器，坐标轴触发有效
               type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
-              shadowStyle:{
-                  color:'#d9d9d9',
-                  opacity:0.2,
-                 //  width:'auto',
-                  shadowOffsetX:5
+              shadowStyle: {
+                opacity: 0.2,
+                shadowColor: this.$theme.color.$lightGrey,
+                color: {
+                  type: 'linear',
+                  x: 0,
+                  y: 0,
+                  x2: 1,
+                  y2: 0,
+                  colorStops: [
+                    {
+                      offset: 0,
+                      color: '#D9D9D900' // 0% 处的颜色
+                    },
+                    {
+                      offset: 0.24,
+                      color: '#D9D9D900' // 24% 处的颜色
+                    },
+                    {
+                      offset: 0.25,
+                      color: '#D9D9D9' // 25% 处的颜色
+                    },
+                    {
+                      offset: 0.75,
+                      color: '#D9D9D9' // 75% 处的颜色
+                    },
+                    {
+                      offset: 0.76,
+                      color: '#D9D9D900' // 76% 处的颜色
+                    },
+                    {
+                      offset: 1,
+                      color: '#D9D9D900' // 100% 处的颜色
+                    }
+                  ],
+                  global: false // 缺省为 false
+                }
               }
             },
           },
