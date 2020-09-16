@@ -4,6 +4,7 @@ import style from './ChartsView.module.scss'
 import Bar from '../components/charts/bar/Bar'
 import Radar from '../components/charts/radar/Radar'
 import Line from '../components/charts/line/Line'
+import Pie from '../components/charts/pie/Pie'
 
 const generalColorList = [
   {
@@ -57,6 +58,7 @@ export default class ChartsView extends Component {
           </div>
         </div>
         <div className={style.contentBox}>
+          <Pie></Pie>
           <Line></Line>
           <Bar></Bar>
           <Radar></Radar>

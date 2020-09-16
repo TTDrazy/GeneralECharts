@@ -25,12 +25,6 @@ export default class Radar extends Component {
             radius: '70%', // 图的大小
             startAngle: 0, // 图偏转角度，将图转向为横向
             name: {
-              // formatter: function (params,i,x) {
-              // console.log(params,i,x)
-              // const values = value.substring(0, value.indexOf('\n'))
-              // return '{specialColor|' + params + ': ' + '' + '}'
-              // },
-              // formatter: '{b}:{c}',
               rich: {
                 specialColor: {
                   color: '#d9d9d9',
@@ -119,12 +113,6 @@ export default class Radar extends Component {
             radius: '70%', // 图的大小
             startAngle: 0, // 图偏转角度，将图转向为横向
             name: {
-              // formatter: function (params,i,x) {
-              // console.log(params,i,x)
-              // const values = value.substring(0, value.indexOf('\n'))
-              // return '{specialColor|' + params + ': ' + '' + '}'
-              // },
-              // formatter: '{b}:{c}',
               rich: {
                 specialColor: {
                   color: '#d9d9d9',
