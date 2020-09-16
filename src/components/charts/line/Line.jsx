@@ -7,51 +7,19 @@ export default class Line extends Component {
   getOptions = () => {
     return [
       {
-        title: '基础柱状图',
+        title: '基础线形图',
         options: {
           tooltip: {
             trigger: 'axis',
             axisPointer: {
-              // 坐标轴指示器，坐标轴触发有效
-              type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
-              shadowStyle: {
-                opacity: 0.2,
-                shadowColor: this.$theme.color.$lightGrey,
-                color: {
-                  type: 'linear',
-                  x: 0,
-                  y: 0,
-                  x2: 1,
-                  y2: 0,
-                  colorStops: [
-                    {
-                      offset: 0,
-                      color: '#D9D9D900' // 0% 处的颜色
-                    },
-                    {
-                      offset: 0.24,
-                      color: '#D9D9D900' // 24% 处的颜色
-                    },
-                    {
-                      offset: 0.25,
-                      color: '#D9D9D9' // 25% 处的颜色
-                    },
-                    {
-                      offset: 0.75,
-                      color: '#D9D9D9' // 75% 处的颜色
-                    },
-                    {
-                      offset: 0.76,
-                      color: '#D9D9D900' // 76% 处的颜色
-                    },
-                    {
-                      offset: 1,
-                      color: '#D9D9D900' // 100% 处的颜色
-                    }
-                  ],
-                  global: false // 缺省为 false
-                }
-              }
+              //坐标轴指示器-基准线
+              type: 'line', //是否移入时出现交叉的竖轴
+              label: {
+                backgroundColor: '#6a7985',
+              },
+              lineStyle: {
+                color: '#2ed6e6',
+              },
             },
           },
           grid: {
@@ -60,11 +28,27 @@ export default class Line extends Component {
             right: '8%',
             top: '15%',
             bottom: '35%',
+            // containLabel: true,
+          },
+          legend: {
+            show: true,
+            left: 140,
+            top: -6,
+            icon: 'roundRect',
+            itemWidth: 16,
+            itemHeight: 4,
+            fontSize: 12,
+            itemGap: 12,
+            textStyle: {
+              color: '#d9d9d9',
+              padding: [3, 0, 0, 0],
+            },
+            data: ['图例名称'],
           },
           xAxis: {
             type: 'category',
-            boundaryGap: true, // 在折线图中是连接 y 轴的原点，在柱状图中用于让柱状图离坐标原点有所间距
-            data: ['类型A', '类型B', '类型C', '类型D', '类型E'],
+            boundaryGap: false, // 连接 y 轴的原点
+            data: ['8月', '10月', '12月', '2月', '4月', '6月'],
             axisLabel: {
               // 坐标轴文本标签，详见axis.axisLabel
               textStyle: {
@@ -124,13 +108,9 @@ export default class Line extends Component {
           series: [
             {
               name: '图例名称',
-              data: [360, 280, 320, 260, 90],
-              type: 'bar',
-              showBackground: true,
-              barWidth: 10, //柱图宽度
-              backgroundStyle: {
-                color: 'rgba(220, 220, 220, 0.8)',
-              },
+              data: [298, 245, 290, 260, 355, 195],
+              type: 'line',
+              smooth: true,
               symbol: 'circle', // 移入后的标记点的图形
               // ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
               symbolSize: 2, //标记图形的大小
@@ -1159,7 +1139,7 @@ export default class Line extends Component {
   render() {
     return (
       <div className={style.content}>
-        <div className={style.title}>柱状图及条形图（Bar）</div>
+        <div className={style.title}>折线图及曲线图（Line）</div>
         <div className={style.chartsList}>
           {this.getOptions().map((item, index) => (
             <div className={style.chartsBox} key={index}>

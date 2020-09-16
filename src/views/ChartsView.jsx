@@ -57,8 +57,8 @@ export default class ChartsView extends Component {
           </div>
         </div>
         <div className={style.contentBox}>
-          <Bar></Bar>
           <Line></Line>
+          <Bar></Bar>
           <Radar></Radar>
         </div>
       </div>
