@@ -104,6 +104,14 @@ export default class Line extends Component {
                 color: '#8e8e8e',
               },
             },
+            axisTick: {
+              // 去掉 Y 轴的小尾巴
+              show: false,
+            },
+            axisLine: {
+              // 去掉 Y 轴
+              show: false,
+            },
           },
           series: [
             {
@@ -217,6 +225,14 @@ export default class Line extends Component {
               textStyle: {
                 color: '#8e8e8e',
               },
+            },
+            axisTick: {
+              // 去掉 Y 轴的小尾巴
+              show: false,
+            },
+            axisLine: {
+              // 去掉 Y 轴
+              show: false,
             },
           },
           series: [
@@ -367,6 +383,14 @@ export default class Line extends Component {
                 color: '#8e8e8e',
               },
             },
+            axisTick: {
+              // 去掉 Y 轴的小尾巴
+              show: false,
+            },
+            axisLine: {
+              // 去掉 Y 轴
+              show: false,
+            },
           },
           series: [
             {
@@ -496,6 +520,14 @@ export default class Line extends Component {
               textStyle: {
                 color: '#8e8e8e',
               },
+            },
+            axisTick: {
+              // 去掉 Y 轴的小尾巴
+              show: false,
+            },
+            axisLine: {
+              // 去掉 Y 轴
+              show: false,
             },
           },
           series: [
@@ -668,6 +700,14 @@ export default class Line extends Component {
                 color: '#8e8e8e',
               },
             },
+            axisTick: {
+              // 去掉 Y 轴的小尾巴
+              show: false,
+            },
+            axisLine: {
+              // 去掉 Y 轴
+              show: false,
+            },
           },
           series: [
             {
@@ -781,6 +821,14 @@ export default class Line extends Component {
               textStyle: {
                 color: '#8e8e8e',
               },
+            },
+            axisTick: {
+              // 去掉 Y 轴的小尾巴
+              show: false,
+            },
+            axisLine: {
+              // 去掉 Y 轴
+              show: false,
             },
           },
           series: [
@@ -931,6 +979,14 @@ export default class Line extends Component {
                 color: '#8e8e8e',
               },
             },
+            axisTick: {
+              // 去掉 Y 轴的小尾巴
+              show: false,
+            },
+            axisLine: {
+              // 去掉 Y 轴
+              show: false,
+            },
           },
           series: [
             {
@@ -1060,6 +1116,14 @@ export default class Line extends Component {
               textStyle: {
                 color: '#8e8e8e',
               },
+            },
+            axisTick: {
+              // 去掉 Y 轴的小尾巴
+              show: false,
+            },
+            axisLine: {
+              // 去掉 Y 轴
+              show: false,
             },
           },
           series: [
