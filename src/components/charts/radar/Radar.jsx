@@ -136,7 +136,7 @@ export default class Radar extends Component {
             },
             splitArea: {
               // 雷达图层级不规则内容背景样式
-              show: false,
+              show: true,
               areaStyle: {
                 color: '#232223',
               },

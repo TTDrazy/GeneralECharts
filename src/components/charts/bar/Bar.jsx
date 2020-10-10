@@ -893,7 +893,7 @@ export default class Bar extends Component {
           {this.getOptions().map((item, index) => (
             <div className={style.chartsBox} key={index}>
               <div className={style.chartsTitle}>{item.title}</div>
-              {console.log(!!item.options.series)}
+              {/* {console.log(!!item.options.series)} */}
               {!!item.options.series?(
                 <ReactEcharts
                   ref="myCharts"
