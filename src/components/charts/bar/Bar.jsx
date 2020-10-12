@@ -685,7 +685,7 @@ export default class Bar extends Component {
               },
               symbol: 'circle', // 移入后的标记点的图形
               // ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
-              symbolSize: 2, //标记图形的大小
+              symbolSize: [2, 1], //标记图形的大小
               itemStyle: {
                 normal: {
                   color: '#2ed6e6',
@@ -799,80 +799,7 @@ export default class Bar extends Component {
       },
       {
         title: '排名条形图',
-        options: {
-          tooltip: {
-            // 关闭悬浮展示数据框
-            show: false,
-          },
-          legend: {
-            // 关闭条目标识块
-            show: false,
-          },
-          grid: {
-            //框体位置
-            left: '16%',
-            right: '25%',
-            top: '0%',
-            bottom: '18%',
-          },
-          xAxis: {
-            type: 'value',
-            show: false,
-          },
-          yAxis: {
-            type: 'category',
-            align: 'right',
-            inverse: true, // 使原先顺序相反的数据回归正常
-            boundaryGap: true, // 在折线图中是连接 y 轴的原点，在柱状图中用于让柱状图离坐标原点有所间距
-            data: ['类型A', '类型B', '类型C', '类型D', '类型E'],
-            axisLabel: {
-              // 坐标轴文本标签，详见axis.axisLabel
-              textStyle: {
-                color: '#d9d9d9',
-              },
-              interval: 'auto', //设置坐标轴分割间隔
-              margin: 8, // 坐标轴底线与 X 轴文字上间距
-            },
-            axisLine: {
-              //x 轴坐标轴底线
-              show: false,
-            },
-            axisTick: { show: false }, //是否有 x 轴刻度值的小尾巴
-          },
-          series: [
-            {
-              name: '图例名称',
-              data: [700, 610, 350, 685, 1000],
-              type: 'bar',
-              showBackground: true,
-              barWidth: 10, //柱图宽度
-              backgroundStyle: {
-                // 柱状图空白区域背景
-                color: 'rgba(255, 255, 255, 0.3)',
-              },
-              symbol: 'circle', // 移入后的标记点的图形
-              // ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
-              symbolSize: 2, //标记图形的大小
-              itemStyle: {
-                normal: {
-                  color: '#2ed6e6',
-                  width: 2,
-                },
-                lineStyle: {
-                  color: '#2ed6e6',
-                  width: 2,
-                },
-              },
-              label: {
-                show: true,
-                position: 'top',
-                formatter: '{c}',
-                color: '#2ed6e6',
-                fontSize: 12,
-              },
-            },
-          ],
-        },
+        options: {},
       },
       {
         title: '特殊条形图',
@@ -894,7 +821,7 @@ export default class Bar extends Component {
             <div className={style.chartsBox} key={index}>
               <div className={style.chartsTitle}>{item.title}</div>
               {/* {console.log(!!item.options.series)} */}
-              {!!item.options.series?(
+              {!!item.options.series ? (
                 <ReactEcharts
                   ref="myCharts"
                   style={{ width: '100%', height: '150px' }}

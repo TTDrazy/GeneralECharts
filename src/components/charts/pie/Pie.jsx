@@ -132,6 +132,7 @@ export default class Pie extends Component {
                       type: {
                         fontSize: 12,
                         color: '#D9D9D9',
+                        padding: [0, 0, 5, 2],
                       },
                     },
                   },
@@ -213,12 +214,6 @@ export default class Pie extends Component {
               lineStyle: {
                 color: 'rgba(255,255,255,0.5)',
               },
-            },
-          },
-          label: {
-            // 指示名称的样式
-            normal: {
-              color: 'rgba(255,255,255,0.7)',
             },
           },
           series: [
@@ -511,7 +506,7 @@ export default class Pie extends Component {
               type: 'liquidFill', // 水球图
               radius: '52%',
               center: ['50%', '35%'],
-              data: [0.5, 0.5, 0.5],
+              data: [0.6, 0.55, 0.5],
               backgroundStyle: {
                 borderWidth: 0,
                 color: 'rgba(255,255,255,0.01)',
@@ -632,20 +627,12 @@ export default class Pie extends Component {
       },
     ]
   }
-  onChartMouseMove(params, echarts) {
-    // 确保只获取同心圆环的内圈环
-    if (params.seriesIndex === 0) {
-      let currentName
-      if (!!params.name) {
-        currentName = params.name
-      } else {
-        currentName = '类型'
-      }
-      // console.log(currentName,echarts)
-      // return currentName
-    }
+  canClickPieChart(myChart) {
+    myChart.on('click', (chartData) => {
+      console.log(chartData)
+    })
   }
-  dynamicPieChart(params, myChart) {
+  dynamicPieChart(myChart) {
     let timer = null
     function clearCurrent() {
       myChart.dispatchAction({
@@ -660,7 +647,7 @@ export default class Pie extends Component {
       })
     }
     function rotation() {
-      let i = 1
+      let i = 2
       timer = setInterval(() => {
         clearCurrent()
         myChart.dispatchAction({
@@ -671,13 +658,17 @@ export default class Pie extends Component {
         i++
       }, 2000)
     }
-    // 轮播饼图
-    myChart.dispatchAction({
-      type: 'highlight',
-      seriesIndex: 0,
-      dataIndex: 0,
+    // 初始高亮
+    setTimeout(() => {
+      myChart.dispatchAction({
+        type: 'highlight',
+        seriesIndex: 0,
+        dataIndex: 1,
+      })
     })
+    // 轮播饼图
     rotation()
+    // 打断轮播
     myChart.on('mouseover', (e) => {
       if (e.dataIndex === 1) {
         clearInterval(timer)
@@ -706,16 +697,18 @@ export default class Pie extends Component {
         seriesIndex: 0,
         dataIndex: 0,
       })
+      // 继续轮播
       rotation()
     })
   }
+  componentDidMount() {
+    let dynamicPie_instance = this.echarts_react_dynamicpie.getEchartsInstance()
+    this.dynamicPieChart(dynamicPie_instance)
+
+    let canClickPie_instance = this.echarts_react_canclickpie.getEchartsInstance()
+    this.canClickPieChart(canClickPie_instance)
+  }
   render() {
-    let onMouseChangeEvent = {
-      mousemove: this.onChartMouseMove.bind(this),
-    }
-    let onMouseOver = {
-      mouseover: this.dynamicPieChart.bind(this),
-    }
     return (
       <div className={style.content}>
         <div className={style.title}>饼图及环形图（Pie）</div>
@@ -724,18 +717,19 @@ export default class Pie extends Component {
             <div className={style.chartsBox} key={index}>
               <div className={style.chartsTitle}>{item.title}</div>
               <ReactEcharts
-                ref={`pieCharts${index}`}
+                ref={(e) => {
+                  if (item.title === '轮播饼图') {
+                    this.echarts_react_dynamicpie = e
+                  } else if (item.title === '带说明多维饼图') {
+                    this.echarts_react_canclickpie = e
+                  } else {
+                    return `myPieCharts${index}`
+                  }
+                }}
                 style={{ width: '100%', height: '165px' }}
                 className={style.charts}
                 option={item.options}
                 lazyUpdate={true} // 在设置完options 后并不立即更新图表
-                onEvents={
-                  item.title === '带说明多维饼图'
-                    ? onMouseChangeEvent
-                    : item.title === '轮播饼图'
-                    ? onMouseOver
-                    : ''
-                }
               ></ReactEcharts>
             </div>
           ))}
