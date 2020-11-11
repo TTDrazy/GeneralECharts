@@ -1198,6 +1198,180 @@ export default class Line extends Component {
           ],
         },
       },
+      {
+        title: '新型折线图',
+        options: {
+          grid: {
+            //框体位置
+            left: '13%',
+            right: '8%',
+            top: '12%',
+            bottom: '25%',
+            // containLabel: true,
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: true, // 两边收缩，不连接 y 轴原点
+            data: [
+              '2020-10-31',
+              '2020-11-01',
+              '2020-11-02',
+              '2020-11-03',
+              '2020-11-04',
+              '2020-11-05',
+              '2020-11-06',
+            ],
+            axisLabel: {
+              // 坐标轴文本标签，详见axis.axisLabel
+              textStyle: {
+                color: '#d9d9d9',
+              },
+              interval: 'auto', //设置坐标轴分割间隔
+              margin: 15, // 坐标轴底线与 X 轴文字上间距
+              formatter: function (value, index) {
+                if (index % 3 === 0) {
+                  return value
+                } else {
+                  return null
+                }
+              },
+            },
+            axisLine: {
+              //x 轴坐标轴底线
+              show: true,
+              lineStyle: {
+                color: '#8e8e8e',
+                width: 1,
+              },
+              symbol: ['none', 'circle'],
+              symbolSize: 5,
+            },
+            axisTick: {
+              show: true,
+              alignWithLabel: true,
+              length: 10,
+            }, //是否有 x 轴刻度值的小尾巴
+            splitLine: {
+              // x 轴的线为虚线及颜色
+              show: true,
+              lineStyle: {
+                type: 'dashed',
+                // color: '#8e8e8e33',
+                color: ['#8e8e8e33', '#8e8e8e33', '#8e8e8e33', '#8e8e8e00'],
+                width: 1,
+              },
+            },
+            splitArea: {
+              show: true,
+              areaStyle: {
+                color: 'rgba(250,250,250,0.05)',
+              },
+            },
+          },
+          yAxis: {
+            splitLine: {
+              // y 轴的线为虚线及颜色
+              show: true,
+              lineStyle: {
+                type: 'dashed',
+                color: '#8e8e8e33',
+                width: 1,
+              },
+            },
+            axisLabel: {
+              textStyle: {
+                color: '#8e8e8e',
+              },
+            },
+            axisTick: {
+              // 去掉 Y 轴的小尾巴
+              show: false,
+            },
+            axisLine: {
+              // 去掉 Y 轴
+              show: true,
+              lineStyle: {
+                color: '#8e8e8e',
+                width: 1,
+              },
+              symbol: ['none', 'circle'],
+              symbolSize: 5,
+            },
+            type: 'value',
+            splitNumber: 3, // 除 0 外显示的数字个数，间隔数字自动
+          },
+          series: [
+            {
+              animationDuration: 3000,
+              data: [0, 0, 100, 180, 193, 160, 150],
+              type: 'line',
+              smooth: false, // 是否为曲线还是折线
+              symbol: 'circle', // 移入后的标记点的图形
+              // ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
+              symbolSize: 0, //标记图形的大小
+              itemStyle: {
+                normal: {
+                  color: '#2ed6e6',
+                  width: 3,
+                },
+                lineStyle: {
+                  width: 2,
+                },
+              },
+              markPoint: {
+                animation: true,
+                animationDuration: 3000,
+                data: [
+                  {
+                    type: 'max',
+                    name: '最大值',
+                    itemStyle: {
+                      color: '#fff',
+                    },
+                  },
+                ],
+                symbol: 'circle',
+                symbolSize: 6,
+                shadowBlur: {
+                  shadowColor: 'rgba(0, 0, 0, 0.5)',
+                  shadowBlur: 10,
+                },
+                itemStyle: {
+                  // 标注的样式
+                  normal: {
+                    label: {
+                      show: true,
+                      padding: [0, 0, 25, 0],
+                      formatter: function (param) {
+                        return `${param.data.coord[1]} 次`
+                      },
+                      fontWeight: 600,
+                      fontSize: 16,
+                      color: '#fff',
+                    },
+                  },
+                },
+              },
+              areaStyle: {
+                //区域背景渐变色
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  {
+                    offset: 0,
+                    color: '#2ed6e672', // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: '#2ed6e621', // 100% 处的颜色
+                  },
+                  //透明度参照表；
+                  // 00%=FF（不透明）    5%=F2    10%=E5    15%=D8    20%=CC    25%=BF    30%=B2    35%=A5    40%=99    45%=8c    50%=7F
+                  // 55%=72    60%=66    65%=59    70%=4c    75%=3F    80%=33    85%=21    90%=19    95%=0c    100%=00（全透明）
+                ]),
+              },
+            },
+          ],
+        },
+      },
     ]
   }
   render() {
