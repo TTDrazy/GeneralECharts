@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import style from '../Main.module.scss'
 import ReactEcharts from 'echarts-for-react'
 import SpecialBar from './SpecialBar'
+import * as echarts from 'echarts'
 
 export default class Bar extends Component {
   getOptions = () => {
@@ -807,72 +808,27 @@ export default class Bar extends Component {
         showComponent: <SpecialBar></SpecialBar>,
       },
       {
-        title: '新版柱状图',
+        title: '新型柱状图',
         options: {
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              // 坐标轴指示器，坐标轴触发有效
-              type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
-              shadowStyle: {
-                opacity: 0.25,
-                shadowColor: '#d9d9d9',
-                color: {
-                  // 调整选中背景色的宽度
-                  type: 'linear',
-                  x: 0,
-                  y: 0,
-                  x2: 1,
-                  y2: 0,
-                  colorStops: [
-                    {
-                      offset: 0,
-                      color: '#D9D9D900', // 0% 处的颜色
-                    },
-                    {
-                      offset: 0.24,
-                      color: '#D9D9D900', // 24% 处的颜色
-                    },
-                    {
-                      offset: 0.25,
-                      color: '#D9D9D9', // 25% 处的颜色
-                    },
-                    {
-                      offset: 0.75,
-                      color: '#D9D9D9', // 75% 处的颜色
-                    },
-                    {
-                      offset: 0.76,
-                      color: '#D9D9D900', // 76% 处的颜色
-                    },
-                    {
-                      offset: 1,
-                      color: '#D9D9D900', // 100% 处的颜色
-                    },
-                  ],
-                  global: false, // 缺省为 false
-                },
-              },
-            },
-          },
           grid: {
             //框体位置
             left: '13%',
             right: '8%',
             top: '15%',
-            bottom: '35%',
+            bottom: '25%',
+            // containLabel: true,
           },
           xAxis: {
             type: 'category',
             boundaryGap: true, // 在折线图中是连接 y 轴的原点，在柱状图中用于让柱状图离坐标原点有所间距
-            data: ['类型A', '类型B', '类型C', '类型D', '类型E'],
+            data: ['门禁闸机', '道闸'],
             axisLabel: {
               // 坐标轴文本标签，详见axis.axisLabel
               textStyle: {
                 color: '#d9d9d9',
               },
               interval: 'auto', //设置坐标轴分割间隔
-              margin: 8, // 坐标轴底线与 X 轴文字上间距
+              margin: 15, // 坐标轴底线与 X 轴文字上间距
             },
             axisLine: {
               //x 轴坐标轴底线
@@ -881,31 +837,41 @@ export default class Bar extends Component {
                 color: '#8e8e8e',
                 width: 1,
               },
+              symbol: ['none', 'circle'],
+              symbolSize: 5,
             },
-            axisTick: { show: false }, //是否有 x 轴刻度值的小尾巴
+            axisTick: {
+              show: true,
+              alignWithLabel: true,
+              length: 10,
+            }, //是否有 x 轴刻度值的小尾巴
+            splitLine: {
+              // x 轴的线为虚线及颜色
+              show: true,
+              lineStyle: {
+                type: 'dashed',
+                // color: '#8e8e8e33',
+                color: ['#8e8e8e33', '#8e8e8e33', '#8e8e8e00'],
+                width: 1,
+              },
+            },
+            splitArea: {
+              show: true,
+              areaStyle: {
+                color: 'rgba(250,250,250,0.05)',
+              },
+            },
           },
           yAxis: {
-            type: 'value',
-            name: '单位', //y 轴单位量名称
-            nameTextStyle: {
-              //y 轴单位量样式
-              color: '#8e8e8e',
-              fontSize: 12,
-              padding: [0, 30, 0, 0],
-            },
-            nameGap: 10, // y 轴单位量的与单位间距
+            minInterval : 1,
+            boundaryGap : [ 0, 0.1 ], // 给 y 轴最大值上浮空间变大
             splitLine: {
               // y 轴的线为虚线及颜色
               show: true,
               lineStyle: {
                 type: 'dashed',
-                color: [
-                  'rgba(217,217,217,0)',
-                  'rgba(217,217,217,0.6)',
-                  'rgba(217,217,217,0.6)',
-                  'rgba(217,217,217,0.6)',
-                  'rgba(217,217,217,0.6)',
-                ],
+                color: '#8e8e8e33',
+                width: 1,
               },
             },
             axisLabel: {
@@ -919,36 +885,79 @@ export default class Bar extends Component {
             },
             axisLine: {
               // 去掉 Y 轴
-              show: false,
+              show: true,
+              lineStyle: {
+                color: '#8e8e8e',
+                width: 1,
+              },
+              symbol: ['none', 'circle'],
+              symbolSize: 5,
             },
+            type: 'value',
+            splitNumber: 2, // 除 0 外显示的数字个数，间隔数字自动
           },
           series: [
             {
-              name: '图例名称',
-              data: [360, 280, 320, 260, 90],
+              name: 'Type1',
+              data: [505, 593],
               type: 'bar',
-              showBackground: true,
-              barWidth: 10, //柱图宽度
-              backgroundStyle: {
-                // 柱状图空白区域背景
-                color: 'rgba(255, 255, 255, 0.3)',
-              },
-              symbol: 'circle', // 移入后的标记点的图形
-              // ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
-              symbolSize: 2, //标记图形的大小
+              barWidth: 10, // 柱图宽度
+              barGap: '150%', // 柱间距离；默认当前柱条宽度的30%
               itemStyle: {
                 normal: {
-                  color: '#2ed6e6',
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                    { offset: 0, color: '#2ED6E6' },
+                    { offset: 0.03, color: '#2ED6E6' },
+                    { offset: 0.04, color: '#2ED6E6B2' },
+                    { offset: 1, color: '#2ED6E621' },
+                  ]),
                   width: 2,
+                  label: {
+                    show: true,
+                    position: 'top', //在上方显示
+                    textStyle: {
+                      //数值样式
+                      color: '#fff',
+                      fontSize: 14,
+                    },
+                  },
                 },
                 lineStyle: {
-                  color: '#2ed6e6',
+                  width: 2,
+                },
+              },
+            },
+            {
+              name: 'Type2',
+              data: [300, 351],
+              type: 'bar',
+              barWidth: 10, //柱图宽度
+              itemStyle: {
+                normal: {
+                  color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                    { offset: 0, color: '#FF5577' },
+                    { offset: 0.04, color: '#FF5577' },
+                    { offset: 0.05, color: '#FF5577B2' },
+                    { offset: 1, color: '#FF557721' },
+                  ]),
+                  width: 2,
+                  label: {
+                    show: true,
+                    position: 'top', //在上方显示
+                    textStyle: {
+                      //数值样式
+                      color: '#fff',
+                      fontSize: 14,
+                    },
+                  },
+                },
+                lineStyle: {
                   width: 2,
                 },
               },
             },
           ],
-        }
+        },
       },
     ]
   }
